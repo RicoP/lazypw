@@ -516,14 +516,21 @@ void encodeAndPrint(unsigned char * password) {
 		passwordSha512Pack[4] ^ passwordSha512Pack[5] ^ passwordSha512Pack[6] ^ passwordSha512Pack[7]
 	};
 
+	int totalLength = 0;
+
 	for (int i = 0; i < 2; ++i) {
 		int length = base64encode(&halfs[i], 8, base64out[i], 256);
-		printf("%i\n", length);
+		totalLength += length;
+		ASSERT(length < 16);
 	}
 
-	char finalOutput[64];
+	char finalOutput[32];
 
-	SPRINTF(finalOutput, "%s#%s", base64out[0], base64out[1]);
+	SPRINTF(finalOutput, "%s%s", base64out[0], base64out[1]);
+
+	//insert # to satisfy security rules of many websites to include special characters into PW
+	finalOutput[passwordSha512Pack[0] % totalLength] = '#';
+
 	printf("%s\n", finalOutput);
 }
 
