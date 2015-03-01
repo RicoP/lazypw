@@ -1,0 +1,6 @@
+*.sdf
+*.tlog
+lazypw/Debug/vc120.idb
+*.vcxproj
+lazypw/lazypw.vcxproj.filters
+*.7z
