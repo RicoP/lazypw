@@ -461,9 +461,9 @@ int base64encode(const void* data_buf, size_t dataLength, char* result, size_t r
 		* if we have one byte available, then its encoding is spread
 		* out over two characters
 		*/
-		if (resultIndex >= resultSize) return 1;   /* indicate failure: buffer too small */
+		if (resultIndex >= resultSize) return 0;   /* indicate failure: buffer too small */
 		result[resultIndex++] = base64chars[n0];
-		if (resultIndex >= resultSize) return 1;   /* indicate failure: buffer too small */
+		if (resultIndex >= resultSize) return 0;   /* indicate failure: buffer too small */
 		result[resultIndex++] = base64chars[n1];
 
 		/*
@@ -472,7 +472,7 @@ int base64encode(const void* data_buf, size_t dataLength, char* result, size_t r
 		*/
 		if ((x + 1) < dataLength)
 		{
-			if (resultIndex >= resultSize) return 1;   /* indicate failure: buffer too small */
+			if (resultIndex >= resultSize) return 0;   /* indicate failure: buffer too small */
 			result[resultIndex++] = base64chars[n2];
 		}
 
@@ -482,7 +482,7 @@ int base64encode(const void* data_buf, size_t dataLength, char* result, size_t r
 		*/
 		if ((x + 2) < dataLength)
 		{
-			if (resultIndex >= resultSize) return 1;   /* indicate failure: buffer too small */
+			if (resultIndex >= resultSize) return 0;   /* indicate failure: buffer too small */
 			result[resultIndex++] = base64chars[n3];
 		}
 	}
@@ -495,13 +495,13 @@ int base64encode(const void* data_buf, size_t dataLength, char* result, size_t r
 	{
 		for (; padCount < 3; padCount++)
 		{
-			if (resultIndex >= resultSize) return 1;   /* indicate failure: buffer too small */
+			if (resultIndex >= resultSize) return 0;   /* indicate failure: buffer too small */
 			result[resultIndex++] = '=';
 		}
 	}
-	if (resultIndex >= resultSize) return 1;   /* indicate failure: buffer too small */
+	if (resultIndex >= resultSize) return 0;   /* indicate failure: buffer too small */
 	result[resultIndex] = 0;
-	return 0;   /* indicate success */
+	return resultIndex;
 }
 
 //MAIN 
@@ -523,9 +523,10 @@ int main(int argc, char** argv) {
 
 	printf("\n");
 
-	base64encode("hello world", 11, base64out, 256);
+	int length = base64encode(output, 64, base64out, 256);
 
 	printf("%s\n", base64out);
+	printf("%i\n", length);
 
 	return 0;
 }
