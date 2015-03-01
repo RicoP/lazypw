@@ -507,23 +507,31 @@ int base64encode(const void* data_buf, size_t dataLength, char* result, size_t r
 //MAIN 
 
 #include <stdio.h>
+#include "utils.h"
 
-int main(int argc, char** argv) {
-	unsigned char foo[] = "hello";
-	unsigned char output[64];
+STATIC_ASSERT(sizeof(uint64_t) == 8);
+
+int main(int argc, unsigned char** argv) {
+	unsigned char * currentPW = argv[0];
+
+	union {
+		uint64_t outputPack[8];
+		unsigned char output[64];
+	}; 
+
+	STATIC_ASSERT(sizeof(outputPack) == sizeof(output));
 
 	char base64out[256];
 	memset(base64out, 0, 256);
 
-	sha512(foo, 5, output, 0);
+	sha512(currentPW, strlen((char*)currentPW), output, 0);
 
-	for (int i = 0; i < 64; ++i) {
-		printf("%02x", output[i]);
-	}
+	uint64_t target[2] = {
+		outputPack[0] ^ outputPack[1] ^ outputPack[2] ^ outputPack[3],
+		outputPack[4] ^ outputPack[5] ^ outputPack[6] ^ outputPack[7]
+	};
 
-	printf("\n");
-
-	int length = base64encode(output, 64, base64out, 256);
+	int length = base64encode(target, 8, base64out, 256);
 
 	printf("%s\n", base64out);
 	printf("%i\n", length);
