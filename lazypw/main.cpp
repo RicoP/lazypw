@@ -535,7 +535,9 @@ void encodeAndPrint(unsigned char * password) {
 }
 
 int main(int argc, unsigned char** argv) {
-	unsigned char * password = argv[0];
-	encodeAndPrint(password);
+	for (int i = 1; i < argc; i++) {
+		unsigned char * password = argv[i];
+		encodeAndPrint(password);
+	}
 	return 0;
 }
