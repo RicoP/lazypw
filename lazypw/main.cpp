@@ -499,37 +499,36 @@ int base64encode(const void* data_buf, size_t dataLength, char* result, size_t r
 
 STATIC_ASSERT(sizeof(uint64_t) == 8);
 
-void encodeAndPrint(unsigned char * currentPW) {
+void encodeAndPrint(unsigned char * password) {
 	union {
-		uint64_t outputPack[8];
-		unsigned char output[64];
-	}; 
+		uint64_t passwordSha512Pack[8];
+		unsigned char passwordSha512[64];
+	};
 
-	STATIC_ASSERT(sizeof(outputPack) == sizeof(output));
+	STATIC_ASSERT(sizeof(passwordSha512Pack) == sizeof(passwordSha512));
 
-	sha512(currentPW, strlen((char*)currentPW), output, 0);
+	sha512(password, strlen((char*)password), passwordSha512, 0);
 
 	char base64out[2][16];
 
-	uint64_t target[2] = {
-		outputPack[0] ^ outputPack[1] ^ outputPack[2] ^ outputPack[3],
-		outputPack[4] ^ outputPack[5] ^ outputPack[6] ^ outputPack[7]
+	uint64_t halfs[2] = {
+		passwordSha512Pack[0] ^ passwordSha512Pack[1] ^ passwordSha512Pack[2] ^ passwordSha512Pack[3],
+		passwordSha512Pack[4] ^ passwordSha512Pack[5] ^ passwordSha512Pack[6] ^ passwordSha512Pack[7]
 	};
 
 	for (int i = 0; i < 2; ++i) {
-		int length = base64encode(&target[i], 8, base64out[i], 256);
+		int length = base64encode(&halfs[i], 8, base64out[i], 256);
 		printf("%i\n", length);
 	}
 
 	char finalOutput[64];
 
-	sprintf(finalOutput, "%s#%s", base64out[0], base64out[1]);
+	SPRINTF(finalOutput, "%s#%s", base64out[0], base64out[1]);
 	printf("%s\n", finalOutput);
-
 }
 
 int main(int argc, unsigned char** argv) {
-	unsigned char * currentPW = argv[0];
-	encodeAndPrint(currentPW);
+	unsigned char * password = argv[0];
+	encodeAndPrint(password);
 	return 0;
 }
