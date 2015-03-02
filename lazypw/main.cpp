@@ -519,7 +519,7 @@ void encodeAndPrint(unsigned char * password) {
 	int totalLength = 0;
 
 	for (int i = 0; i < 2; ++i) {
-		int length = base64encode(&halfs[i], 8, base64out[i], 256);
+		int length = base64encode(&halfs[i], 8, base64out[i], 16);
 		totalLength += length;
 		ASSERT(length < 16);
 	}
