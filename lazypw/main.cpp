@@ -499,7 +499,7 @@ int base64encode(const void* data_buf, size_t dataLength, char* result, size_t r
 
 STATIC_ASSERT(sizeof(uint64_t) == 8);
 
-void encodeAndPrint(unsigned char * password) {
+void encodeAndPrint(unsigned char * password, char (&finalOutput)[32]) {
 	union {
 		uint64_t passwordSha512Pack[8];
 		unsigned char passwordSha512[64];
@@ -524,21 +524,25 @@ void encodeAndPrint(unsigned char * password) {
 		ASSERT(length < 16);
 	}
 
-	char finalOutput[32];
-
 	SPRINTF(finalOutput, "%s%s", base64out[0], base64out[1]);
 
 	//insert # to satisfy security rules of many websites to include special characters into PW
 	finalOutput[passwordSha512Pack[0] % totalLength] = '#';
-
-	printf("%s\n", finalOutput);
 }
 
-extern "C" int main(int argc, char** argv) {
+int main(int argc, char** argv) {
 	for (int i = 0; i < argc; i++) {
 		unsigned char * password = (unsigned char * ) argv[i];
 		printf("%s ", argv[i]);
-		encodeAndPrint(password);
+		char finalOutput[32];
+		encodeAndPrint(password, finalOutput);
+		printf("%s\n", finalOutput);
 	}
 	return 0;
+}
+
+extern "C" char * encode(unsigned char * password) {
+	static char finalOutput[32];
+	encodeAndPrint(password, finalOutput);
+	return finalOutput;
 }
