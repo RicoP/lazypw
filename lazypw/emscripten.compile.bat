@@ -1,1 +1,1 @@
-em++ -std=c++11 main.cpp -O3 -s EXPORTED_FUNCTIONS="['_encode']" -o lazypw.js
+em++ -std=c++11 main.cpp -O1 -s EXPORTED_FUNCTIONS="['_encode']" -o ../lazypw.web/lazypw.js
