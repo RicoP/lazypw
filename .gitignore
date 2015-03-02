@@ -4,3 +4,5 @@ lazypw/Debug/vc120.idb
 lazypw/lazypw.vcxproj.filters
 *.7z
 *.opensdf
+*.mem
+lazypw/lazypw.js
