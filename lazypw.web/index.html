@@ -15,27 +15,47 @@
     <![endif]-->
 </head>
 <body>
-    <h1>Hello, world!</h1>
+   
+    <div class="container theme-showcase" role="main">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="row">
 
-    <button class="btn btn-lg btn-primary" type="button">HELLO</button>
+                    <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon1">
+                            <span class="glyphicon glyphicon-briefcase" aria-hidden="true"></span>
+                        </span>
+                        <input type="password" class="form-control" placeholder="Master Password" aria-describedby="basic-addon1" />
+                    </div>
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 45%">
+                            <span>45% Complete</span>
+                        </div>
+                    </div>
 
-    <button class="btn btn-lg btn-success" type="button">HELLO</button>
+                </div>
+                <div class="row">
+                    <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon1">
+                            <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                        </span>
+                        <input type="text" class="form-control" readonly="readonly" aria-describedby="basic-addon1" value="text" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
 
-    <button class="btn btn-lg btn-info" type="button">HELLO</button>
+            </div>
+        </div>
+    </div>
 
-    <button class="btn btn-lg btn-warning" type="button">HELLO</button>
-
-    <button class="btn btn-lg btn-danger" type="button">HELLO</button>
-
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
     <script src="lazypw.js"> </script>
     <script>
         var encode = Module.cwrap('encode', // name of C function
             'string', // return type
-            ['string']); // argument types        
+            ['string']); // argument types
     </script>
     <script src="app.js"> </script>
 </body>

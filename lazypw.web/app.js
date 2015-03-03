@@ -1,5 +1,5 @@
 ﻿
 var bar = encode("foo");
 
-alert(bar);
+console.log(bar);
 //# sourceMappingURL=app.js.map
