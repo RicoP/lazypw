@@ -18,8 +18,10 @@
     <IISExpressUseClassicPipelineMode />
   </PropertyGroup>
   <ItemGroup>
+    <Content Include="encode.js" />
     <Content Include="index.html" />
     <Content Include="lazypw.js" />
+    <Content Include="test.js" />
     <Content Include="web.config" />
   </ItemGroup>
   <ItemGroup>
