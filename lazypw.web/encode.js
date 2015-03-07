@@ -4,6 +4,6 @@
 
 
 function encode(text) {
-    var ret = _encode(text);
-    return ret;
+    if (text) return _encode(text);
+    return "";
 }
