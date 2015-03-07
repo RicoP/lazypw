@@ -24,7 +24,6 @@
     <Content Include="web.config" />
   </ItemGroup>
   <ItemGroup>
-    <TypeScriptCompile Include="app.ts" />
     <TypeScriptCompile Include="logic.ts" />
   </ItemGroup>
   <ItemGroup>

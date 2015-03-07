@@ -74,7 +74,7 @@
     <h2>account</h2>
     <div ng-controller="LazyController">
         <div ng-repeat="account in accounts">
-            <span>{{account.name + ""}}</span>
+            <span>{{account.name}}</span>
             <span>{{account.encoded}}</span>
         </div>
         <form ng-submit="addAccount()">
