@@ -1,1 +1,1 @@
-em++ -std=c++11 main.cpp -O1 -s EXPORTED_FUNCTIONS="['_encode']" -o ../lazypw.web/lazypw.js
+em++ -std=c++11 main.cpp -O3 --memory-init-file 0 -s EXPORTED_FUNCTIONS="['_encode']" -o ../lazypw.web/lazypw.js
