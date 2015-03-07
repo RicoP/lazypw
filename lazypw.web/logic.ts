@@ -1,4 +1,6 @@
-﻿(function () {
+﻿declare var angular: any;
+
+(function () {
     angular.module('lazyApp', []).controller('LazyController', ['$scope', Ctrl]);
 
     function Ctrl($scope) {
